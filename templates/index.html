@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Center</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+<form action="http://127.0.0.1:5000/test" method="GET">
+    <button type="submit">Get Data</button>
+</form>
+<h1>Fitness Center Data</h1>
+
+<section>
+    <h2>Memberships types</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Monthly Price(RON)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>Student</td>
+            <td>Access to standard facilities at a reduced price(4 times per week)</td>
+            <td>160</td>
+        </tr>
+
+        <tr>
+            <td>Bronze</td>
+            <td>Access to standard facilities(4 times per week)</td>
+            <td>190</td>
+        </tr>
+
+        <tr>
+            <td>Silver</td>
+            <td>Access to standard facilities + sauna(4 times per week)</td>
+            <td>240</td>
+        </tr>
+
+        </tr>
+        <td>Gold</td>
+        <td>Access to all facilities(sauna, personal trainer, private workout sessions + unlimited access)</td>
+        <td>500</td>
+        </tbody>
+        <tbody id=""></tbody>
+    </table>
+</section> <!--Memberships types-->
+
+<section>
+    <h2>Active/Inactive Memberships</h2>
+    <button id="loadMemberships">Load Memberships</button>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Price(RON)</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody id="membershipTableBody"></tbody>
+        <h3>Delete Membership</h3>
+        <form id="deleteMembershipForm">
+            <label for="membershipId">Membership ID:</label>
+            <input type="number" id="membershipId" required><br>
+            <button type="button" onclick="deleteMembership()">Delete Membership</button>
+        </form>
+    </table>
+</section> <!--Active/Inactive Memberships-->
+
+<section>
+    <h2>Customers</h2>
+    <button id="loadCustomers">Load Customers</button>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Membership Type</th>
+        </tr>
+        </thead>
+        <tbody id="customerTableBody"></tbody>
+    </table>
+</section> <!--Customers-->
+
+<section>
+    <h2>Trainers</h2>
+    <button id="loadTrainers">Load Trainers</button>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Phone</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody id="trainerTableBody"></tbody>
+    </table>
+</section> <!--Trainers-->
+
+<section>
+    <h2>Workout Sessions</h2>
+    <button id="loadSessions">Load Sessions</button>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Max Participants</th>
+            <th>Available Spots</th>
+        </tr>
+        </thead>
+        <tbody id="sessionTableBody"></tbody>
+    </table>
+</section> <!--Workout Sessions-->
+
+<section>
+    <h2>Add Membership</h2>
+    <form id="membershipForm">
+        <label>Type: <input type="text" id="membershipType" required></label><br>
+        <label>Price: <input type="number" id="membershipPrice" step="0.01" required></label><br>
+        <label>Start Date: <input type="date" id="membershipStartDate" required></label><br>
+        <label>End Date: <input type="date" id="membershipEndDate"></label><br>
+        <label>Status:
+            <select id="membershipStatus">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+        </label><br>
+        <button type="button" onclick="addMembership()">Add Membership</button>
+    </form>
+</section> <!--Add Membership-->
+
+<section>
+    <h2>Add Customers</h2>
+    <form id="addCustomerForm">
+        <label for="customerName">Name:</label>
+        <input type="text" id="customerName" placeholder="Enter customer name" required><br>
+
+        <label for="customerPhone">Phone:</label>
+        <input type="tel" id="customerPhone" placeholder="Enter phone number" pattern="^\d{10,11}$" required><br>
+
+        <label for="customerEmail">Email:</label>
+        <input type="email" id="customerEmail" placeholder="Enter email address" required><br>
+
+        <label for="customMembershipType">Membership Type:</label>
+        <select id="customMembershipType" required>
+            <!-- Options will be populated dynamically -->
+        </select><br>
+
+        <button type="button" onclick="addCustomer()">Add Customer</button>
+    </form>
+</section> <!--Add Customers-->
+
+<section>
+    <h2>Add Trainers</h2>
+    <form id="addTrainerForm">
+        <label for="trainerName">Name:</label>
+        <input type="text" id="trainerName" placeholder="Enter trainer name" required><br>
+
+        <label for="specialization">Specialization:</label>
+        <input type="text" id="specialization" placeholder="Enter specialization" required><br>
+
+        <label for="trainerPhone">Phone:</label>
+        <input type="text" id="trainerPhone" placeholder="Enter phone number" required><br>
+
+        <label for="trainerStatus">Status:</label>
+        <select id="trainerStatus" required>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+        </select><br>
+        <button type="button" onclick="addTrainer()">Add Trainer</button>
+    </form>
+</section> <!--Add Trainers-->
+
+<section>
+    <h2>Add Workout Sessions</h2>
+    <form id="addSessionForm">
+        <label for="sessionName">Session Name:</label>
+        <input type="text" id="sessionName" placeholder="Enter session name" required><br>
+
+        <label for="sessionDate">Date:</label>
+        <input type="date" id="sessionDate" required><br>
+
+        <label for="maxParticipants">Max Participants:</label>
+        <input type="number" id="maxParticipants" placeholder="Enter max participants" required><br>
+
+        <label for="availableSpots">Available Spots:</label>
+        <input type="number" id="availableSpots" placeholder="Enter available spots" required><br>
+
+        <button type="button" onclick="addWorkoutSession()">Add Session</button>
+    </form>
+</section> <!--Add Workout Sessions-->
+
+
+<script>
+    function loadData(endpoint, tableBodyId) {
+        fetch(`http://127.0.0.1:5000${endpoint}`)
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById(tableBodyId);
+                tableBody.innerHTML = '';
+
+                if (data.success && data.data.length > 0) {
+                    data.data.forEach(row => {
+                        const tableRow = document.createElement('tr');
+                        row.forEach(cell => {
+                            const tableCell = document.createElement('td');
+                            tableCell.textContent = cell !== null ? cell : 'N/A';
+                            tableRow.appendChild(tableCell);
+                        });
+                        tableBody.appendChild(tableRow);
+                    });
+                } else {
+                    const emptyRow = document.createElement('tr');
+                    const emptyCell = document.createElement('td');
+                    emptyCell.colSpan = 6;
+                    emptyCell.textContent = 'No data available';
+                    emptyRow.appendChild(emptyCell);
+                    tableBody.appendChild(emptyRow);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading data:', error);
+            });
+    }
+
+    function loadMembershipTypes() {
+        fetch('http://127.0.0.1:5000/get_membership_types') // Endpoint-ul pentru tipurile de abonament
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const membershipDropdown = document.getElementById('customerMembershipType');
+                    membershipDropdown.innerHTML = ''; // Șterge opțiunile existente
+
+                    // Adaugă fiecare tip de abonament
+                    data.data.forEach(type => {
+                        const option = document.createElement('option');
+                        option.value = type.id; // Asociază ID-ul tipului de abonament
+                        option.textContent = `${type.name} (${type.price} RON)`; // Afișează numele și prețul
+                        membershipDropdown.appendChild(option);
+                    });
+                } else {
+                    console.error('Eroare la încărcarea tipurilor de abonament:', data.error);
+                    alert('Nu s-au putut încărca tipurile de abonament.');
+                }
+            })
+            .catch(error => {
+                console.error('Eroare la preluarea tipurilor de abonament:', error);
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadMembershipTypes);
+
+    document.getElementById('loadMemberships').addEventListener('click', () => loadData('/test', 'membershipTableBody'));
+    document.getElementById('loadCustomers').addEventListener('click', () => loadData('/customers', 'customerTableBody'));
+    document.getElementById('loadTrainers').addEventListener('click', () => loadData('/trainers', 'trainerTableBody'));
+    document.getElementById('loadSessions').addEventListener('click', () => loadData('/sessions', 'sessionTableBody'));
+
+    function addMembership() {
+        const data = {
+            membershipType: document.getElementById('membershipType').value,
+            price: parseFloat(document.getElementById('membershipPrice').value),
+            startDate: document.getElementById('membershipStartDate').value,
+            endDate: document.getElementById('membershipEndDate').value || null,
+            status: document.getElementById('membershipStatus').value
+        };
+
+        fetch('http://127.0.0.1:5000/add_membership', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert(result.message);
+                    loadData('/test', 'membershipTableBody');
+                } else {
+                    alert("Error: " + result.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+
+    }
+
+    function deleteMembership() {
+        const membershipId = document.getElementById('membershipId').value;
+
+        fetch(`http://127.0.0.1:5000/delete_membership/${membershipId}`, {
+            method: 'DELETE',
+        })
+            .then(response => response.json())
+            .then(result => {
+                alert(result.message);
+                if (result.success) {
+                    loadData('/test', 'membershipTableBody');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function addCustomer() {
+        const customerData = {
+            name: document.getElementById('customerName').value,
+            phoneNumber: document.getElementById('customerPhone').value,  // Asigură-te că trimiteți 'phoneNumber'
+            email: document.getElementById('customerEmail').value,
+            membershipStatus: document.getElementById('customerMembershipStatus').value,
+            membershipId: document.getElementById('customerMembershipType').value
+        };
+
+        console.log(customerData);
+
+        fetch('http://127.0.0.1:5000/add_customer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(customerData)
+        })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+                if (result.success) {
+                    alert('Customer added successfully!');
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+
+    function addTrainer() {
+
+        const data = {
+            name: document.getElementById('trainerName').value,
+            specialization: document.getElementById('trainerSpecialization').value,
+            phone: document.getElementById('trainerPhone').value,
+            status: document.getElementById('trainerStatus').value
+        };
+
+
+        fetch(`http://127.0.0.1:5000/add_trainer`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert(result.message);
+
+                    loadData('/trainers', 'trainerTableBody');
+                } else {
+                    alert("Error: " + result.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred while adding the trainer.");
+            });
+
+        document.getElementById('addTrainerForm').reset();
+    }
+
+    function addWorkoutSession() {
+        const data = {
+            name: document.getElementById('sessionName').value,
+            date: document.getElementById('sessionDate').value,
+            maxParticipants: parseInt(document.getElementById('sessionMaxParticipants').value),
+            availableSpots: parseInt(document.getElementById('sessionAvailableSpots').value)
+        };
+
+        fetch(`http://127.0.0.1:5000/add_session`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert(result.message);
+
+                    loadData('/sessions', 'sessionTableBody');
+                } else {
+                    alert("Error: " + result.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred while adding the workout session.");
+            });
+
+        // Resetează formularul
+        document.getElementById('addSessionForm').reset();
+    }
+
+
+</script>
+</body>
+</html>

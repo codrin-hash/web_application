@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Details</title>
+</head>
+<body>
+    <h1>Your Profile and Subscription Details</h1>
+
+    <h2>Profile Information</h2>
+    <p>Age: {{ profile[2] }}</p>
+    <p>Height: {{ profile[3] }} cm</p>
+    <p>Weight: {{ profile[4] }} kg</p>
+
+    {% if subscription %}
+        <h2>Your Active Subscription</h2>
+        <p>Subscription Type: {{ subscription[0] }}</p>
+        <p>Start Date: {{ subscription[1] }}</p>
+        <p>End Date: {{ subscription[2] }}</p>
+    {% else %}
+        <h2>No Active Subscription</h2>
+        <p>You don't have an active subscription. Please choose one.</p>
+        <a href="{{ }}">Choose Subscription</a>
+    {% endif %}
+</body>
+</html>

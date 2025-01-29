@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Workout</title>
+</head>
+<body>
+    <h1>Plan a Workout</h1>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <label for="trainer_id">Choose a Trainer:</label>
+        <select name="trainer_id" id="trainer_id" required>
+            {% for trainer in trainers %}
+                <option value="{{ trainer[0] }}">{{ trainer[1] }} - {{ trainer[2] }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="workout_type">Workout Type:</label>
+        <input type="text" name="workout_type" id="workout_type" placeholder="e.g., Cardio" required>
+
+        <label for="session_date">Session Date and Time:</label>
+        <input type="datetime-local" name="session_date" id="session_date" required>
+
+        <button type="submit">Plan Workout</button>
+    </form>
+</body>
+</html>

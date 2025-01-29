@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Subscription</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .subscription-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #fafafa;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .subscription-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .subscription-card h2 {
+            margin: 0;
+            color: #555;
+        }
+
+        .subscription-card p {
+            margin: 5px 0;
+            color: #777;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-student {
+            background-color: #4CAF50;
+        }
+
+        .btn-student:hover {
+            background-color: #45a049;
+        }
+
+        .btn-bronze {
+            background-color: #cd7f32;
+        }
+
+        .btn-bronze:hover {
+            background-color: #c3722c;
+        }
+
+        .btn-silver {
+            background-color: #c0c0c0;
+        }
+
+        .btn-silver:hover {
+            background-color: #b0b0b0;
+        }
+
+        .btn-gold {
+            background-color: #ffd700;
+            color: #333;
+        }
+
+        .btn-gold:hover {
+            background-color: #e6c200;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back-btn a {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background: #ddd;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .back-btn a:hover {
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Choose Your Subscription</h1>
+        <form method="POST" action="{{ url_for('choose_subscription') }}">
+            <div class="subscription-card">
+                <h2>Student - 160 RON</h2>
+                <p>Includes standard facilities at a discounted price, limited access up to 4 times per week.</p>
+                <button name="subscription_type" value="Student" class="btn btn-student">Choose Student</button>
+            </div>
+            <div class="subscription-card">
+                <h2>Bronze - 230 RON</h2>
+                <p>Includes standard facilities, limited access up to 4 times per week.</p>
+                <button name="subscription_type" value="Bronze" class="btn btn-bronze">Choose Bronze</button>
+            </div>
+            <div class="subscription-card">
+                <h2>Silver - 280 RON</h2>
+                <p>Includes standard facilities + sauna, unlimited access.</p>
+                <button name="subscription_type" value="Silver" class="btn btn-silver">Choose Silver</button>
+            </div>
+            <div class="subscription-card">
+                <h2>Gold - 699 RON</h2>
+                <p>Includes all facilities such as sauna, swimming pool, personal trainer, and private workout sessions, unlimited access.</p>
+                <button name="subscription_type" value="Gold" class="btn btn-gold">Choose Gold</button>
+            </div>
+        </form>
+        <div class="back-btn">
+            <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

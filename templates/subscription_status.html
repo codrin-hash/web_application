@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Status</title>
+</head>
+<body>
+    <h1>Your Subscription Status</h1>
+    {% if subscription %}
+        <h2>Details of Your Subscription:</h2>
+        <ul>
+            <li>Type: {{ subscription.type }}</li>
+            <li>Start Date: {{ subscription.start_date }}</li>
+            <li>End Date: {{ subscription.end_date }}</li>
+            <li>Status: {{ subscription.status }}</li>
+        </ul>
+    {% else %}
+        <h2>You currently do not have an active subscription!</h2>
+        <a href="/select-subscription"><button>Select a Subscription</button></a>
+    {% endif %}
+</body>
+</html>

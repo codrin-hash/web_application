@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Status</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Profile Status</h1>
+
+        <!-- User Info -->
+        <div class="card mt-3">
+            <div class="card-header">
+                User Information
+            </div>
+            <div class="card-body">
+                <p><strong>Name:</strong> {{ user_data[0] }}</p>
+                <p><strong>Email:</strong> {{ user_data[1] }}</p>
+                <p><strong>Phone:</strong> {{ user_data[2] }}</p>
+            </div>
+        </div>
+
+        <!-- Profile Info -->
+        <div class="card mt-3">
+            <div class="card-header">
+                Profile Information
+            </div>
+            <div class="card-body">
+                {% if profile_data %}
+                    <p><strong>Age:</strong> {{ profile_data[0] }}</p>
+                    <p><strong>Height:</strong> {{ profile_data[1] }} cm</p>
+                    <p><strong>Weight:</strong> {{ profile_data[2] }} kg</p>
+                {% else %}
+                    <p>No profile information found.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Subscription Info -->
+        <div class="card mt-3">
+            <div class="card-header">
+                Subscription Status
+            </div>
+            <div class="card-body">
+                {% if subscription_data %}
+                    <p><strong>Subscription Type:</strong> {{ subscription_data[0] }}</p>
+                    <p><strong>Status:</strong> {{ subscription_data[1] }}</p>
+                {% else %}
+                    <p>You do not have an active subscription.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary mt-3">Back to Home</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
