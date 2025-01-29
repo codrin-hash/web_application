@@ -1,0 +1,1 @@
+I did a web application for a gym using Oracle for the database, Python for the back-end code, Flask for launching a local server and operating my website. For the front-end i used HTML, CSS, JavaScript and Bootstrap to design my website as much as possible. Enjoy and leave a review if possible! :)
